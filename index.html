@@ -1,686 +1,424 @@
-import { useEffect, useState } from "react";
-<link rel="stylesheet" href="./style.css">
-<script src="./app.js"></script>
-export function AdminDashboard() {
-  const stats = [
-    { title: "Ventas Hoy", value: "$8.4M" },
-    { title: "Pedidos", value: "124" },
-    { title: "Productos", value: "1.284" },
-    { title: "Clientes", value: "842" },
-  ];
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  const orders = [
-    "Pedido #8452",
-    "Pedido #8453",
-    "Pedido #8454",
-    "Pedido #8455",
-  ];
+  <title>Bemax Tech Demo</title>
 
-  return (
-    <div className="min-h-screen bg-[#0f172a] text-white flex">
-      <aside className="w-72 bg-black border-r border-white/10 p-6 hidden lg:flex flex-col">
+  <link rel="stylesheet" href="./style.css"/>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+    <img
+      src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
+      class="logo"
+    />
+
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#promos">Promociones</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#cliente">Cliente</a>
+    </nav>
+
+    <div style="display:flex; gap:10px;">
+
+      <button class="btn" onclick="adminLogin()">
+        Admin Demo
+      </button>
+
+      <button class="btn" onclick="clientLogin()">
+        Cliente Demo
+      </button>
+
+      <button class="btn">
+        Carrito (<span id="cart-count">0</span>)
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <h1>
+        Ecommerce Tecnológico Moderno
+      </h1>
+
+      <p>
+        Demo comercial inspirada en Alkosto, Éxito y Azzorti
+        para Bemax Tech.
+      </p>
+
+      <button class="btn">
+        Comprar ahora
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- PROMOS -->
+  <section class="section" id="promos">
+
+    <h2 class="title">
+      Promociones Activas
+    </h2>
+
+    <div class="promos">
+
+      <div class="promo">
+
         <img
-          src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
-          className="h-14 object-contain mb-10"
+          src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop"
         />
 
-        <nav className="space-y-3">
-          {[
-            "Dashboard",
-            "Inventario",
-            "Promociones",
-            "Catálogos",
-            "Pedidos",
-            "Clientes",
-            "Facturación",
-          ].map((item, i) => (
-            <button
-              key={i}
-              className="w-full text-left px-4 py-3 rounded-2xl bg-white/5 hover:bg-cyan-500 transition"
-            >
-              {item}
-            </button>
-          ))}
-        </nav>
+        <div class="promo-content">
 
-        <div className="mt-auto bg-white/5 rounded-3xl p-5">
-          <h4 className="font-bold mb-3">Scanner Inventario</h4>
-          <div className="text-5xl text-center mb-3">📷</div>
-          <button className="w-full bg-cyan-500 py-3 rounded-2xl font-bold">
-            Escanear producto
+          <div class="countdown">
+            Termina en
+            <span class="timer">02:14:55</span>
+          </div>
+
+          <h2>Gaming Sale</h2>
+
+          <button class="btn">
+            Comprar
           </button>
-        </div>
-      </aside>
 
-      <main className="flex-1 p-6 overflow-auto">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-4xl font-black">Dashboard Administrativo</h1>
-            <p className="text-gray-400 mt-2">
-              Gestión completa de ecommerce Bemax.
-            </p>
-          </div>
-
-          <div className="flex gap-3 flex-wrap">
-            <button className="bg-cyan-500 px-5 py-3 rounded-2xl font-bold hover:scale-105 transition">
-              Nueva promoción
-            </button>
-
-            <button className="bg-orange-500 px-5 py-3 rounded-2xl font-bold hover:scale-105 transition">
-              Subir catálogo
-            </button>
-          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
-          {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="bg-black border border-white/10 rounded-3xl p-6"
-            >
-              <p className="text-gray-400 text-sm">{stat.title}</p>
-              <h3 className="text-4xl font-black mt-3">{stat.value}</h3>
-            </div>
-          ))}
-        </div>
+      </div>
 
-        <div className="grid xl:grid-cols-3 gap-6">
-          <div className="xl:col-span-2 bg-black border border-white/10 rounded-3xl p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold">Ventas mensuales</h3>
-              <span className="text-green-400 font-bold">+18%</span>
-            </div>
+      <div class="promo">
 
-            <div className="space-y-5">
-              {[85, 60, 95, 72, 55].map((value, i) => (
-                <div key={i}>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span>Semana {i + 1}</span>
-                    <span>{value}%</span>
-                  </div>
+        <img
+          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop"
+        />
 
-                  <div className="h-4 bg-zinc-800 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-cyan-500 rounded-full"
-                      style={{ width: `${value}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div class="promo-content">
+
+          <div class="countdown">
+            Termina en
+            <span class="timer">08:22:19</span>
           </div>
 
-          <div className="bg-black border border-white/10 rounded-3xl p-6">
-            <h3 className="text-2xl font-bold mb-6">Últimos pedidos</h3>
+          <h2>Audio Days</h2>
 
-            <div className="space-y-4">
-              {orders.map((order, i) => (
-                <div
-                  key={i}
-                  className="bg-white/5 rounded-2xl p-4 flex items-center justify-between"
-                >
-                  <div>
-                    <h4 className="font-bold">{order}</h4>
-                    <p className="text-gray-400 text-sm">
-                      Cliente registrado
-                    </p>
-                  </div>
+          <button class="btn">
+            Comprar
+          </button>
 
-                  <span className="text-cyan-400 text-sm font-bold">
-                    Entregado
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6 mt-6">
-          <div className="bg-black border border-white/10 rounded-3xl p-6">
-            <h3 className="text-2xl font-bold mb-5">
-              Gestión de promociones
+      </div>
+
+      <div class="promo">
+
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
+        />
+
+        <div class="promo-content">
+
+          <div class="countdown">
+            Termina en
+            <span class="timer">01:52:33</span>
+          </div>
+
+          <h2>Cyber Week</h2>
+
+          <button class="btn">
+            Comprar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section class="section" id="productos">
+
+    <h2 class="title">
+      Productos Destacados
+    </h2>
+
+    <div class="products">
+
+      <div class="card">
+
+        <img
+          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop"
+        />
+
+        <div class="card-content">
+
+          <h3>Audífonos Bluetooth</h3>
+
+          <div class="price">
+            $149.900
+          </div>
+
+          <button
+            class="btn"
+            onclick="addToCart('Audífonos Bluetooth',149900)"
+          >
+            Agregar
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <img
+          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop"
+        />
+
+        <div class="card-content">
+
+          <h3>Smartwatch Pro</h3>
+
+          <div class="price">
+            $249.900
+          </div>
+
+          <button
+            class="btn"
+            onclick="addToCart('Smartwatch Pro',249900)"
+          >
+            Agregar
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <img
+          src="https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop"
+        />
+
+        <div class="card-content">
+
+          <h3>Parlante RGB</h3>
+
+          <div class="price">
+            $189.900
+          </div>
+
+          <button
+            class="btn"
+            onclick="addToCart('Parlante RGB',189900)"
+          >
+            Agregar
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <img
+          src="https://images.unsplash.com/photo-1585338447937-7082f8fc763d?q=80&w=800&auto=format&fit=crop"
+        />
+
+        <div class="card-content">
+
+          <h3>Power Bank</h3>
+
+          <div class="price">
+            $99.900
+          </div>
+
+          <button
+            class="btn"
+            onclick="addToCart('Power Bank',99900)"
+          >
+            Agregar
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CATALOGO -->
+  <section class="section" id="catalogo">
+
+    <h2 class="title">
+      Catálogo Interactivo
+    </h2>
+
+    <iframe
+      src="https://heyzine.com/flip-book/5783fb4e69.html"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+
+  </section>
+
+  <!-- CLIENTE -->
+  <section class="section" id="cliente">
+
+    <h2 class="title">
+      Experiencia Cliente
+    </h2>
+
+    <div class="client-panel">
+
+      <div class="panel">
+
+        <h2>
+          Últimos pedidos
+        </h2>
+
+        <div class="stats">
+
+          <div class="stat">
+            <h3>4</h3>
+            <p>Pendientes</p>
+          </div>
+
+          <div class="stat">
+            <h3>2</h3>
+            <p>En camino</p>
+          </div>
+
+          <div class="stat">
+            <h3>16</h3>
+            <p>Entregados</p>
+          </div>
+
+        </div>
+
+        <div class="orders">
+
+          <div class="order">
+            <span>Pedido #8452</span>
+            <span>Entregado</span>
+          </div>
+
+          <div class="order">
+            <span>Pedido #8453</span>
+            <span>En camino</span>
+          </div>
+
+          <div class="order">
+            <span>Pedido #8454</span>
+            <span>Pendiente</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <h2>
+          Facturación Automática
+        </h2>
+
+        <p style="margin-top:20px;">
+          Generación automática de facturas demo.
+        </p>
+
+        <button
+          class="btn"
+          style="margin-top:20px;"
+          onclick="generateInvoice()"
+        >
+          Generar factura
+        </button>
+
+        <div
+          id="invoice"
+          class="invoice"
+          style="display:none;"
+        >
+
+          <img
+            src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
+            style="height:70px; position:relative; z-index:2;"
+          />
+
+          <img
+            src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
+            class="watermark"
+          />
+
+          <div style="position:relative; z-index:2; margin-top:20px;">
+
+            <h3>
+              Factura Demo
             </h3>
 
-            <div className="space-y-4">
-              {[
-                "Cyber Week",
-                "Gaming Days",
-                "Descuento Audio",
-              ].map((promo, i) => (
-                <div
-                  key={i}
-                  className="bg-white/5 rounded-2xl p-4 flex justify-between items-center"
-                >
-                  <div>
-                    <h4 className="font-bold">{promo}</h4>
-                    <p className="text-sm text-gray-400">
-                      Promoción activa
-                    </p>
-                  </div>
+            <p style="margin-top:10px;">
+              Cliente: Usuario Demo
+            </p>
 
-                  <button className="bg-cyan-500 px-4 py-2 rounded-xl text-sm font-bold">
-                    Editar
-                  </button>
-                </div>
-              ))}
-            </div>
+            <p>
+              Estado: Pagado
+            </p>
+
+            <p>
+              Total: $589.900
+            </p>
+
           </div>
 
-          <div className="bg-black border border-white/10 rounded-3xl p-6">
-            <h3 className="text-2xl font-bold mb-5">Inventario rápido</h3>
-
-            <div className="space-y-4">
-              {[
-                "Audífonos Bluetooth",
-                "Power Bank",
-                "Smartwatch",
-                "Parlante RGB",
-              ].map((product, i) => (
-                <div
-                  key={i}
-                  className="bg-white/5 rounded-2xl p-4 flex justify-between items-center"
-                >
-                  <div>
-                    <h4 className="font-bold">{product}</h4>
-                    <p className="text-sm text-gray-400">
-                      Stock disponible
-                    </p>
-                  </div>
-
-                  <span className="text-green-400 font-bold">
-                    {50 - i * 7} uds
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
-      </main>
+
+      </div>
+
     </div>
-  );
-}
 
-export default function TechStoreDemo() {
-  const [cart, setCart] = useState([]);
-  const [logged, setLogged] = useState(false);
-  const [userType, setUserType] = useState("");
-  const [showInvoice, setShowInvoice] = useState(false);
-  const [barcode, setBarcode] = useState("");
+  </section>
 
-  useEffect(() => {
-    const savedCart = localStorage.getItem("bemax-cart");
-    const savedUser = localStorage.getItem("bemax-user");
+  <!-- WHATSAPP -->
+  <a
+    href="https://wa.me/573000000000?text=Hola%20quiero%20información"
+    class="whatsapp"
+    target="_blank"
+  >
+    💬
+  </a>
 
-    if (savedCart) setCart(JSON.parse(savedCart));
+  <!-- FOOTER -->
+  <footer>
 
-    if (savedUser) {
-      setLogged(true);
-      setUserType(savedUser);
-    }
-  }, []);
+    <h2>
+      Bemax Tech Demo
+    </h2>
 
-  const addToCart = (product) => {
-    const updated = [...cart, product];
-    setCart(updated);
-    localStorage.setItem("bemax-cart", JSON.stringify(updated));
-  };
+    <p style="margin-top:15px;">
+      Ecommerce demo responsive para presentación comercial.
+    </p>
 
-  const loginDemo = (type) => {
-    setLogged(true);
-    setUserType(type);
-    localStorage.setItem("bemax-user", type);
-  };
+  </footer>
 
-  const logout = () => {
-    setLogged(false);
-    setUserType("");
-    localStorage.removeItem("bemax-user");
-  };
+  <script src="./app.js"></script>
 
-  const fakeBarcodeScan = () => {
-    setBarcode("7701234567890");
-  };
-
-  const generateInvoice = () => {
-    setShowInvoice(true);
-  };
-  const promos = [
-    {
-      title: "Cyber Week",
-      time: "02:14:55",
-      image:
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      title: "Gaming Sale",
-      time: "08:45:12",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
-    },
-    {
-      title: "Audio Days",
-      time: "01:22:19",
-      image:
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1200&auto=format&fit=crop",
-    },
-  ];
-
-  const products = [
-    {
-      name: "Audífonos Bluetooth",
-      price: "$149.900",
-      image:
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Power Bank Magnética",
-      price: "$99.900",
-      image:
-        "https://images.unsplash.com/photo-1585338447937-7082f8fc763d?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Smartwatch Pro",
-      price: "$249.900",
-      image:
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Parlante RGB",
-      price: "$189.900",
-      image:
-        "https://images.unsplash.com/photo-1545454675-3531b543be5d?q=80&w=800&auto=format&fit=crop",
-    },
-  ];
-
-  return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-3">
-              <img
-                src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
-                className="h-12 w-auto object-contain"
-              />
-
-              <div>
-                <h1 className="text-2xl font-bold tracking-wide"></h1>
-                
-              </div>
-            </div>
-            <p className="text-xs text-gray-400">Demo Ecommerce Responsive</p>
-          </div>
-
-          <nav className="hidden md:flex gap-6 text-sm">
-            <a href="#" className="hover:text-cyan-400">Inicio</a>
-            <a href="#" className="hover:text-cyan-400">Productos</a>
-            <a href="#" className="hover:text-cyan-400">Promociones</a>
-            <a href="#" className="hover:text-cyan-400">Catálogo</a>
-            <a href="#" className="hover:text-cyan-400">Contacto</a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {!logged ? (
-              <div className="flex gap-2">
-                <button
-                  onClick={() => loginDemo("Admin")}
-                  className="bg-white text-black px-4 py-2 rounded-xl text-sm font-semibold hover:scale-105 transition"
-                >
-                  Admin Demo
-                </button>
-
-                <button
-                  onClick={() => loginDemo("Cliente")}
-                  className="bg-zinc-800 px-4 py-2 rounded-xl text-sm font-semibold hover:scale-105 transition"
-                >
-                  Cliente Demo
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={logout}
-                className="bg-white text-black px-4 py-2 rounded-xl text-sm font-semibold hover:scale-105 transition"
-              >
-                {userType} conectado
-              </button>
-            )}
-
-            <button className="bg-cyan-500 px-4 py-2 rounded-xl text-sm font-semibold hover:scale-105 transition">
-              Carrito ({cart.length})
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
-          className="w-full h-[70vh] object-cover opacity-40"
-        />
-
-        <div className="absolute inset-0 flex items-center">
-          <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center w-full">
-            <div>
-              <span className="bg-cyan-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm border border-cyan-500/30">
-                Tecnología Premium
-              </span>
-
-              <h2 className="text-5xl md:text-7xl font-black mt-6 leading-tight">
-                La nueva generación tech
-              </h2>
-
-              <p className="text-gray-300 mt-6 text-lg max-w-xl">
-                Ecommerce responsive inspirado en Azzorti con catálogo digital,
-                promociones, escáner de códigos de barras y dashboard administrativo.
-              </p>
-
-              <div className="flex gap-4 mt-8 flex-wrap">
-                <button className="bg-cyan-500 px-6 py-4 rounded-2xl font-bold hover:scale-105 transition">
-                  Comprar ahora
-                </button>
-
-                <button className="border border-white/20 px-6 py-4 rounded-2xl hover:bg-white/10 transition">
-                  Ver catálogo
-                </button>
-              </div>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold">Sistema Inteligente</h3>
-                  <p className="text-gray-400 text-sm mt-2">
-                    Plataforma ecommerce moderna para clientes y administración.
-                  </p>
-                </div>
-
-                <div
-                  onClick={fakeBarcodeScan}
-                  className="bg-cyan-500 hover:scale-105 transition cursor-pointer rounded-2xl p-5 text-center"
-                >
-                  <div className="text-4xl mb-2">📷</div>
-                  <p className="font-bold text-sm">Scanner Admin</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/5 rounded-2xl p-5">
-                  <p className="text-gray-400 text-sm">Productos activos</p>
-                  <h4 className="text-4xl font-black mt-3">1.284</h4>
-                </div>
-
-                <div className="bg-white/5 rounded-2xl p-5">
-                  <p className="text-gray-400 text-sm">Ventas del día</p>
-                  <h4 className="text-4xl font-black mt-3">$4.2M</h4>
-                </div>
-              </div>
-
-              {barcode && (
-                <div className="mt-6 bg-cyan-500/20 border border-cyan-500/30 rounded-2xl p-4">
-                  <h4 className="font-bold text-cyan-300 mb-2">
-                    Producto registrado en inventario
-                  </h4>
-
-                  <p className="text-sm text-gray-300">
-                    Código detectado: {barcode}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Promos */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <div className="flex items-center justify-between mb-10">
-          <div>
-            <h2 className="text-4xl font-black">Promociones activas</h2>
-            <p className="text-gray-400 mt-2">
-              Cuenta regresiva en tiempo real.
-            </p>
-          </div>
-
-          <button className="border border-white/20 px-4 py-2 rounded-xl hover:bg-white/10 transition">
-            Ver todas
-          </button>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {promos.map((promo, index) => (
-            <div
-              key={index}
-              className="relative overflow-hidden rounded-3xl border border-white/10 group"
-            >
-              <img
-                src={promo.image}
-                className="h-[350px] w-full object-cover group-hover:scale-110 transition duration-700"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-
-              <div className="absolute bottom-0 p-6 w-full">
-                <div className="bg-red-500 inline-block px-3 py-1 rounded-full text-sm font-bold mb-3">
-                  Termina en {promo.time}
-                </div>
-
-                <h3 className="text-3xl font-black">{promo.title}</h3>
-
-                <button className="mt-4 bg-white text-black px-5 py-3 rounded-xl font-bold hover:scale-105 transition">
-                  Comprar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Productos */}
-      <section className="bg-zinc-950 py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <h2 className="text-4xl font-black">Productos destacados</h2>
-              <p className="text-gray-400 mt-2">
-                Integrados desde catálogo Bemax.
-              </p>
-            </div>
-
-            <input
-              placeholder="Buscar productos"
-              className="bg-black border border-white/10 px-4 py-3 rounded-2xl outline-none w-64"
-            />
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className="bg-black border border-white/10 rounded-3xl overflow-hidden hover:-translate-y-2 transition"
-              >
-                <img
-                  src={product.image}
-                  className="h-64 w-full object-cover"
-                />
-
-                <div className="p-5">
-                  <h3 className="text-xl font-bold">{product.name}</h3>
-                  <p className="text-cyan-400 text-2xl font-black mt-3">
-                    {product.price}
-                  </p>
-
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="w-full mt-5 bg-cyan-500 py-3 rounded-2xl font-bold hover:scale-105 transition"
-                  >
-                    Agregar demo
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Catálogo */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-black">Catálogo interactivo</h2>
-          <p className="text-gray-400 mt-2">
-            Integración con flipbook Heyzine.
-          </p>
-        </div>
-
-        <div className="rounded-3xl overflow-hidden border border-white/10 h-[700px]">
-          <iframe
-            src="https://heyzine.com/flip-book/5783fb4e69.html"
-            allowFullScreen
-            className="w-full h-full"
-            title="Catalogo Bemax Demo" loading="lazy"
-          />
-        </div>
-      </section>
-
-      {/* Cliente Preview */}
-      <section className="bg-zinc-950 py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="mb-10">
-            <h2 className="text-4xl font-black">Experiencia Cliente</h2>
-            <p className="text-gray-400 mt-2">
-              Inspirado en Éxito y Alkosto para compras rápidas y modernas.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-black border border-white/10 rounded-3xl p-6 h-80 overflow-auto">
-              <div className="flex items-center justify-between mb-5">
-                <h3 className="text-2xl font-bold">Panel Cliente</h3>
-                <span className="bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-xs">
-                  Cliente Demo
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 gap-3 mb-5">
-                <div className="bg-white/5 rounded-2xl p-3 text-center">
-                  <p className="text-xs text-gray-400">Pendientes</p>
-                  <h4 className="text-2xl font-black">4</h4>
-                </div>
-
-                <div className="bg-white/5 rounded-2xl p-3 text-center">
-                  <p className="text-xs text-gray-400">En camino</p>
-                  <h4 className="text-2xl font-black">2</h4>
-                </div>
-
-                <div className="bg-white/5 rounded-2xl p-3 text-center">
-                  <p className="text-xs text-gray-400">Entregados</p>
-                  <h4 className="text-2xl font-black">16</h4>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {[1, 2, 3].map((_, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-between bg-white/5 p-4 rounded-2xl"
-                  >
-                    <div>
-                      <h4 className="font-bold">Pedido #{1000 + i}</h4>
-                      <p className="text-gray-400 text-sm">
-                        Estado actualizado
-                      </p>
-                    </div>
-
-                    <div className="text-cyan-400 font-bold">
-                      Entregado
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-black border border-white/10 rounded-3xl p-6 flex flex-col justify-center items-center text-center overflow-hidden relative">
-              <img
-                src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
-                className="absolute inset-0 m-auto w-72 opacity-5 object-contain"
-              />
-
-              <div className="text-7xl mb-6 relative z-10">🧾</div>
-              <h3 className="text-3xl font-black relative z-10">
-                Facturación automática
-              </h3>
-
-              <p className="text-gray-400 mt-4 max-w-md relative z-10">
-                Facturas demo generadas automáticamente para compras online.
-              </p>
-
-              <button
-                onClick={generateInvoice}
-                className="mt-8 bg-cyan-500 px-6 py-3 rounded-2xl font-bold hover:scale-105 transition relative z-10"
-              >
-                Generar factura
-              </button>
-
-              {showInvoice && (
-                <div className="relative mt-6 bg-white/10 rounded-2xl p-5 w-full text-left overflow-hidden z-10">
-                  <img
-                    src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
-                    className="h-14 object-contain mb-4 relative z-10"
-                  />
-
-                  <img
-                    src="https://bemax.com.co/cdn/shop/files/3418c7a8-c212-4e4d-9c33-98786bb0bab3.png"
-                    className="absolute inset-0 m-auto w-64 opacity-5 object-contain"
-                  />
-
-                  <h4 className="text-xl font-bold mb-3 relative z-10">
-                    Factura Demo
-                  </h4>
-
-                  <div className="relative z-10 space-y-1">
-                    <p>Cliente: Usuario Demo</p>
-                    <p>Productos: {cart.length}</p>
-                    <p>Total: ${(cart.length * 149900).toLocaleString()}</p>
-                    <p className="text-green-400 mt-2">
-                      Factura generada correctamente
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <a
-        href="https://wa.me/573000000000?text=Hola%20quiero%20información%20de%20Bemax%20Tech"
-        target="_blank"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 rounded-full p-4 shadow-2xl hover:scale-110 transition"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-8 h-8 fill-white">
-          <path d="M16 .396C7.164.396 0 7.56 0 16.396c0 2.82.737 5.574 2.137 8.004L0 32l7.826-2.052a15.94 15.94 0 008.174 2.248c8.836 0 16-7.164 16-16S24.836.396 16 .396zm0 29.09a13.01 13.01 0 01-6.633-1.815l-.475-.281-4.643 1.217 1.24-4.527-.31-.465a12.97 12.97 0 01-2.01-6.92c0-7.186 5.846-13.032 13.032-13.032 7.186 0 13.032 5.846 13.032 13.032 0 7.186-5.846 13.032-13.032 13.032zm7.153-9.76c-.392-.196-2.32-1.144-2.68-1.274-.36-.13-.622-.196-.884.196-.262.392-1.014 1.274-1.242 1.536-.228.262-.458.294-.85.098-.392-.196-1.654-.61-3.15-1.946-1.163-1.038-1.948-2.32-2.176-2.712-.228-.392-.024-.604.172-.8.176-.176.392-.458.588-.686.196-.228.262-.392.392-.654.13-.262.065-.49-.033-.686-.098-.196-.884-2.124-1.21-2.908-.318-.764-.64-.66-.884-.672l-.752-.014c-.262 0-.686.098-1.046.49-.36.392-1.372 1.34-1.372 3.268 0 1.928 1.404 3.79 1.6 4.052.196.262 2.764 4.22 6.7 5.916.936.404 1.666.646 2.236.826.94.298 1.796.256 2.472.156.754-.112 2.32-.948 2.648-1.864.328-.916.328-1.7.228-1.864-.098-.164-.36-.262-.752-.458z"/>
-        </svg>
-      </a>
-
-      <footer className="border-t border-white/10 py-10">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="text-2xl font-black">BEMAX TECH</h3>
-            <p className="text-gray-400 text-sm mt-2">
-              Ecommerce demo responsive tipo Azzorti.
-            </p>
-          </div>
-
-          <div className="flex gap-6 text-sm text-gray-400">
-            <a href="#">Términos</a>
-            <a href="#">Privacidad</a>
-            <a href="#">Soporte</a>
-            <a href="#">Contacto</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+</body>
+</html>
